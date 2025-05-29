@@ -187,7 +187,12 @@ if __name__ == '__main__':
         pred.predict(img_file, glb_tmp_file)
 
         print(f"start to refine model: {glb_tmp_file}")
-        subprocess.run(f'python3 /src/model_glb_re.py -- {glb_tmp_file} {glb_file}', shell=True)
+        # subprocess.run(f'python3 /src/model_glb_re.py -- {glb_tmp_file} {glb_file}', shell=True)
+
+        cmd = [
+            "blender", "-b", "-P", "/src/model_glb_re.py", "--", glb_tmp_file, glb_file
+        ]
+        subprocess.run(cmd, check=True)
 
         print('OK')
     else:
