@@ -25,12 +25,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Login to Harbor
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.HARBOR_URL_BASE }}
-          username: ${{ env.HARBOR_USER }}
-          password: ${{ env.HARBOR_PASSWROD }}
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,6 +49,14 @@ jobs:
 
       - name: View imags
         run: docker images
+
+        
+      - name: Login to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.HARBOR_URL_BASE }}
+          username: ${{ env.HARBOR_USER }}
+          password: ${{ env.HARBOR_PASSWROD }}
 
       - name: Push to Harbor
         id: sync-harbor
