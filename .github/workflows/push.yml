@@ -36,6 +36,9 @@ jobs:
           tool-cache: false
           docker-images: false
 
+      - name: View Disk
+        run: df -h
+
       - name: Setup Cog
         uses: replicate/setup-cog@v2
         with:
