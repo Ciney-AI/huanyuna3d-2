@@ -8,6 +8,6 @@ build:
     # - apt-get install -y libsm6 libxext6 liblzma-dev libglfw3-dev libgles2-mesa-dev blender
     - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/latest/download/pget_$(uname -s)_$(uname -m)" && chmod +x /usr/local/bin/pget
     - echo 1 && (git clone https://github.com/Ciney-AI/huanyuna3d-2 /tmp/repo) && (cd /tmp/repo/hy3dgen/texgen/custom_rasterizer && export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export FORCE_CUDA=1 && pip install -v .) && (cd /tmp/repo/hy3dgen/texgen/differentiable_renderer && export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export FORCE_CUDA=1 && pip install -v .) && (rm -rf /tmp/repo)
-    - export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export NVCC_FLAGS="-O3" && export FORCE_CUDA=1
+    - export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export NVCC_FLAGS="-O3" && export FORCE_CUDA=1 && pip install diso
 
 predict: "predict.py:Predictor"

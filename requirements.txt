@@ -19,7 +19,6 @@ onnxruntime
 meshlib
 hf_xet
 
-diso
 requests 
 fastapi 
 dapr 
