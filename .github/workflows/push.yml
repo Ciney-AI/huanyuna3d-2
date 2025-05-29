@@ -69,12 +69,13 @@ jobs:
           password: ${{ env.HARBOR_PASSWROD }}
 
       - name: Push to Harbor
-        id: sync-harbor
         run: |
           source_image="${{ env.IMAGE_NAME }}:latest"
+          target_image=${{env.HARBOR_URL_BASE}}/${{ env.HARBOR_PROJECT }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          docker tag ${source_image} ${target_image}
 
-          target_image=${{env.HARBOR_URL_BASE}}/${{ env.HARBOR_PROJECT }}/${{ env.DIST_REPOSITORY }}:${{ env.IMAGE_VERSION }}
-          echo "DIST IMAGE: ${target_image}"
-          skopeo sync --all --src docker --dest docker ${source_image} ${target_image}
+          echo "push image: ${target_image}"
+          
+          docker push $target_image
           
           
