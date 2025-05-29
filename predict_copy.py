@@ -183,16 +183,19 @@ if __name__ == '__main__':
         base_name = os.path.basename(glb_file)
         os.makedirs(output_dir, exist_ok=True)
 
-        glb_tmp_file = f'{output_dir}/temp_{base_name}'
-        pred.predict(img_file, glb_tmp_file)
+        # glb_tmp_file = f'{output_dir}/temp_{base_name}'
+        # pred.predict(img_file, glb_tmp_file)
 
-        print(f"start to refine model: {glb_tmp_file}")
-        # subprocess.run(f'python3 /src/model_glb_re.py -- {glb_tmp_file} {glb_file}', shell=True)
+        # print(f"start to refine model: {glb_tmp_file}")
+        # # subprocess.run(f'python3 /src/model_glb_re.py -- {glb_tmp_file} {glb_file}', shell=True)
 
-        cmd = [
-            "blender", "-b", "-P", "/src/model_glb_re.py", "--", glb_tmp_file, glb_file
-        ]
-        subprocess.run(cmd, check=True)
+        # cmd = [
+        #     "blender", "-b", "-P", "/src/model_glb_re.py", "--", glb_tmp_file, glb_file
+        # ]
+        # subprocess.run(cmd, check=True)
+
+
+        pred.predict(img_file, glb_file)
 
         print('OK')
     else:
