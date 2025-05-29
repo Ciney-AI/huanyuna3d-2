@@ -1,0 +1,20 @@
+--extra-index-url https://download.pytorch.org/whl/cu126
+pybind11
+diffusers
+einops
+opencv-python-headless
+numpy
+torch==2.7.0
+transformers
+torchvision==0.22.0
+tqdm
+trimesh
+pymeshlab
+pygltflib
+xatlas
+accelerate
+rembg
+onnxruntime
+
+meshlib
+hf_xet
