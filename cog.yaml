@@ -1,7 +1,7 @@
 build:
   gpu: true
   cuda: "12.6"
-  python_version: "3.12"
+  python_version: "3.12.3"
   python_requirements: "requirements.txt"
   system_packages:
     - qtbase5-dev 
