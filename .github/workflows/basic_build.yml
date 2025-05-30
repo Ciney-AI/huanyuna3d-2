@@ -1,0 +1,83 @@
+name: Build Huanyun3D-2 Basic
+
+on:
+  # Allows manual triggering from GitHub.com
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Dist docker image version"
+        required: true
+        default: "1.0.0"
+  # Uncomment the lines below to trigger on every push to main
+  # push:
+  #   branches:
+  #     - main
+env:
+  HARBOR_USER: ${{ secrets.HARBOR_USER }}
+  HARBOR_PASSWROD: ${{ secrets.HARBOR_PWD }}
+  HARBOR_URL_BASE: ${{ secrets.HARBOR_URL_BASE }}
+  HARBOR_PROJECT: programes
+  IMAGE_NAME: huanyuan3d-2-basic
+  IMAGE_VERSION: ${{ inputs.version }}
+jobs:
+  push_to_replicate:
+    name: Push to Replicate
+    runs-on: ubuntu-latest
+
+    steps:
+      
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            ref: 'basic'
+
+      # - name: Free disk space
+      #   uses: jlumbroso/free-disk-space@v1.3.1
+      #   with:
+      #     tool-cache: true
+      #     docker-images: false
+
+      - name: View Disk
+        run: df -h
+
+      - name: Setup Cog
+        uses: replicate/setup-cog@v2
+        with:
+          cog-version: "v0.15.1"
+        # with:
+        #   token: ${{ secrets.REPLICATE_API_TOKEN }}
+
+      # - name: Push to Replicate
+      #   run: |
+      #     if [ -n "${{ github.event.inputs.model_name }}" ]; then
+      #       cog push r8.im/${{ github.event.inputs.model_name }}
+      #     else
+      #       cog push
+      #     fi
+
+      - name: Build Docker Image
+        run: cog build -t ${{ env.IMAGE_NAME }}
+
+      - name: View imags
+        run: docker images
+
+        
+      - name: Login to Harbor
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.HARBOR_URL_BASE }}
+          username: ${{ env.HARBOR_USER }}
+          password: ${{ env.HARBOR_PASSWROD }}
+
+      - name: Push to Harbor
+        run: |
+          source_image="${{ env.IMAGE_NAME }}:latest"
+          target_image=${{env.HARBOR_URL_BASE}}/${{ env.HARBOR_PROJECT }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          docker tag ${source_image} ${target_image}
+
+          echo "push image: ${target_image}"
+          
+          docker push $target_image
+          
+          
