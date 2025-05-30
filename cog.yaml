@@ -4,9 +4,9 @@ build:
   python_version: "3.12"
   python_requirements: "requirements.txt"
   run:
-    - apt-get update && apt-get install -y libgl1 ninja-build
+    - apt-get update && apt-get install -y libgl1 ninja-build qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libqt5xml5 libqt5core5a libqt5gui5 libqt5widgets5 blender 
     - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/latest/download/pget_$(uname -s)_$(uname -m)" && chmod +x /usr/local/bin/pget
     - echo 1 && (git clone https://github.com/ndreca/Hunyuan3D-2 /tmp/repo) && (cd /tmp/repo/hy3dgen/texgen/custom_rasterizer && export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export FORCE_CUDA=1 && pip install -v .) && (cd /tmp/repo/hy3dgen/texgen/differentiable_renderer && export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export FORCE_CUDA=1 && pip install -v .) && (rm -rf /tmp/repo)
-    - export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export NVCC_FLAGS="-O3" && export FORCE_CUDA=1 && pip install diso requests fastapi dapr dapr-ext-fastapi cloudevents uvicorn
+    - export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;9.0+PTX" && export CUDA_HOME=/usr/local/cuda-12.6 && export NVCC_FLAGS="-O3" && export FORCE_CUDA=1 && pip install diso
 
 predict: "predict.py:Predictor"

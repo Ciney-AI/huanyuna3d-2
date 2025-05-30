@@ -18,3 +18,11 @@ onnxruntime
 
 meshlib
 hf_xet
+
+requests 
+fastapi 
+dapr 
+dapr-ext-fastapi 
+cloudevents 
+uvicorn 
+Pillow
